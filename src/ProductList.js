@@ -1,29 +1,40 @@
 import React from 'react'
 import logo from './fruit.jpg' // the path of the fruit.jpg
 import styles from './ProductList.module.css' // call the css in the src
-import {useState} from "react" // call the useStat use for the setProcudt from react
+import {useState,useEffect} from "react" // call the useStat use for the setProcudt from react
 import {Link} from "react-router-dom" // for use the link funtion
 import Title from './Title'
+import QuantityBtn from './QuantityBtn'
 
 export default function ProductList() {
-  let productList = [ //array for the list to show
-    {"id":1,"name":"apple","price":5,"image":"apple.jpg","description":"林檎"},
-    {"id":2,"name":"orange","price":6,"image":"orange.jpg","description":"オレンジ"},
-    {"id":3,"name":"banana","price":4,"image":"banana.jpg","description":"バナナ"}
-  ]
+  let [productList,setProcuctList] = useState([])
+  let [input,setInput] = useState('')
+  useEffect(()=>{
+    fetch ('https://hoyinleung.github.io/demoapi/react-basic-product.json')
+        .then(Response=>Response.json())
+        .then(data=>setProcuctList(data)) 
+    console.log(productList)
+  },[])
 
-  const [showProduct,setShowProduct] = useState(false)
+  useEffect(()=>{
+    if(input.length>4)
+      console.log('to long')
+    else
+      console.log('to short')  
+  },[input])
+
+
 
   return (
     <div>
+      <input type="text" onChange={e=>setInput(e.target.value)}/>
         <img src={logo} />
         <br/>
-        {showProduct && <button onClick={()=>{setShowProduct(false)}}>Hide the product</button>}  {/*this two button to set the boolean of showProduct to true and flase, to make the product to be hide and show */}
-        {!showProduct && <button onClick={()=>{setShowProduct(true)}}>Show the product</button>}        
-        <Title mainTitle="Please select the item" subTitle="HaHa"/>
+     
+        <Title mainTitle="Please select the item" />
         <div>
           {
-            showProduct && productList.map(product=>(   // the product will show if showProduct is true 
+            productList.map(product=>(  
             
             <div className={styles.productBorder }key={product.id}>
             {product.name}<br/>
@@ -31,7 +42,8 @@ export default function ProductList() {
             <Link to={'/product/'+ product.id}>
             <img src={process.env.PUBLIC_URL+'/img/'+product.image}/><br/> {/*to select the jpg from the public folder */}
              </Link>
-            {product.description}<br/>
+            {product.description}
+            <QuantityBtn/><br/>
             </div>
             )
            )

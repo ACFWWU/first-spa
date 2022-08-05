@@ -9,7 +9,6 @@ function App() {
     <BrowserRouter>
       <Link to="/">Home Page</Link>
       <Link to="/checkout">Checkout</Link>
-      <Link to="/product">Product Detail</Link>
 
       <Routes>
         <Route path="/" element={<ProductList/>}/>
