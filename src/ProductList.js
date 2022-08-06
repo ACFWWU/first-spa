@@ -43,7 +43,7 @@ export default function ProductList() {
             <img src={process.env.PUBLIC_URL+'/img/'+product.image}/><br/> {/*to select the jpg from the public folder */}
              </Link>
             {product.description}
-            <QuantityBtn/><br/>
+            <QuantityBtn productInfo={product}/><br/>
             </div>
             )
            )
