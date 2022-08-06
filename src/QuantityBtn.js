@@ -34,7 +34,7 @@ export default function QuantityBtn({productInfo}) {
         }
         else //if the cart have that product just add the quantity of that product only
         {
-            let newCartArray =[...cartItems]
+            let newCartArray = [...cartItems]
             newCartArray[productIndexInCart].quantity++ //here can not use cartItems[procuctIndexIncart].quantity++ ,the is the limit of react should use setOOXX() this function to change the data 
             setCartItems(newCartArray)
         }
@@ -42,7 +42,7 @@ export default function QuantityBtn({productInfo}) {
     }
 
     const handleSubtract =()=>{
-        if (cartItems[productIndexInCart.quantity===1]) { //if the quantity of the product is 1 need to remove in the cart,splice is the function of javascript to delete the element of array
+        if (cartItems[productIndexInCart].quantity===1) { //if the quantity of the product is 1 need to remove in the cart,splice is the function of javascript to delete the element of array
             let newCartArray = [...cartItems]
             newCartArray.splice(productIndexInCart,1)
             setCartItems(newCartArray)
